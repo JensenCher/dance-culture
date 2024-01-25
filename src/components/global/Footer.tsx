@@ -1,15 +1,62 @@
-export default function Footer() {
-  return (
-    <footer className="border-t border-zinc-800 mt-44">
-      <div className="max-w-7xl mx-auto flex lg:flex-row flex-col items-center lg:justify-between justify-center gap-y-4 md:px-16 px-6 py-16 text-zinc-400">
-        <small className=" duration-300 font-mono">All rights reserved &copy; {new Date().getFullYear()}</small>
+"use client";
 
-        <small className="hover:text-primary/70 duration-300">
-          <a href="https://github.com/JensenCher/dance-culture" target="_blank" rel="noreferrer noopener">
-            Built by <span className="text-primary">Jensen Cher</span>
-          </a>
-        </small>
-      </div>
+import { usePathname } from "next/navigation";
+import MaxWidthWrapper from "./MaxWidthWrapper";
+import { Icons } from "../icons";
+import Link from "next/link";
+
+export default function Footer() {
+  const pathsToMinimize = ["/verify-email", "/sign-up", "/sign-in"];
+  const pathname = usePathname();
+  return (
+    <footer className="bg-white flex-grow-0">
+      <MaxWidthWrapper>
+        <div className="border-t border-gray-200">
+          {pathsToMinimize.includes(pathname) ? null : (
+            <div className="pb-8 pt-16">
+              <div className="flex justify-center">
+                <Icons.logo className="h-12 w-auto" />
+              </div>
+            </div>
+          )}
+          {pathsToMinimize.includes(pathname) ? null : (
+            <div>
+              <div className="relative flex items-center p-6 sm:py-8 lg:mt-0">
+                <div className="absolute inset-0 overflow-hidden roudned-lg">
+                  <div aria-hidden="true" className="absolute bg-zinc-0 inset-0 bg-gradient-to-br bg-opacity-90" />
+                </div>
+                <div className="text-center relative mx-auto max-w-sm">
+                  <h3 className="font-semibold text-gray-900">Become a seller</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    If you&apos;d like to sell high-quality digital product, you can do so in minutes.{" "}
+                    <Link href="/sign-in?as=seller" className="whitespace-nowrap font-medium text-black hover:text-zinc-900">
+                      Get Started &rarr;
+                    </Link>
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="py-10 md:flex md:items-center md:justify-between">
+          <div className="text-center md:text-left">
+            <p className="text-sm text-muted-foreground">&copy; {new Date().getFullYear()} All Rights Reserved</p>
+          </div>
+          <div className="mt-4 flex items-center justify-center md:mt-0">
+            <div className="flex space-x-8">
+              <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
+                Terms
+              </Link>
+              <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
+                Privacy Policy
+              </Link>
+              <Link href="#" className="text-sm text-muted-foreground hover:text-gray-600">
+                Cookie Policy
+              </Link>
+            </div>
+          </div>
+        </div>
+      </MaxWidthWrapper>
     </footer>
   );
 }
